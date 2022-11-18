@@ -1,0 +1,3 @@
+﻿  Lab4_Dice.cpp
+C:\Users\evgen\source\repos\Lab4_Dice\Lab4_Dice\Lab4_Dice.cpp(47,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  Lab4_Dice.vcxproj -> C:\Users\evgen\source\repos\Lab4_Dice\x64\Debug\Lab4_Dice.exe
