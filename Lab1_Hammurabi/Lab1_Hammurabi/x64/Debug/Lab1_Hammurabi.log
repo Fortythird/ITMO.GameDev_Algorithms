@@ -1,0 +1,7 @@
+﻿  Lab1_Hammurabi.cpp
+C:\Users\evgen\source\repos\Lab1_Hammurabi\Lab1_Hammurabi\Lab1_Hammurabi.cpp(61,17): warning C4267: 'initializing': conversion from 'size_t' to 'short', possible loss of data
+C:\Users\evgen\source\repos\Lab1_Hammurabi\Lab1_Hammurabi\Lab1_Hammurabi.cpp(114,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+C:\Users\evgen\source\repos\Lab1_Hammurabi\Lab1_Hammurabi\Lab1_Hammurabi.cpp(176,63): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\evgen\source\repos\Lab1_Hammurabi\Lab1_Hammurabi\Lab1_Hammurabi.cpp(184,35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\evgen\source\repos\Lab1_Hammurabi\Lab1_Hammurabi\Lab1_Hammurabi.cpp(204,75): warning C4244: '=': conversion from 'float' to 'unsigned short', possible loss of data
+  Lab1_Hammurabi.vcxproj -> C:\Users\evgen\source\repos\Lab1_Hammurabi\x64\Debug\Lab1_Hammurabi.exe
