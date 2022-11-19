@@ -4,8 +4,9 @@
 using namespace std;
 
 string input;
-unsigned short population = 100, deaths = 0, immigrants = 0, square = 1000, age = 1, acreCost = 0, acresToBuy = 0,
+unsigned short population = 100, immigrants = 0, square = 1000, age = 1, acreCost = 0, acresToBuy = 0,
 acresToSell = 0, wheatForPeople = 0, acresToSow = 0;
+short deaths = 0;
 float wheat_amount = 2800.0, wheatPerAcre = 0, wheat_income = 0, rats_damage = 0, avDeathPersent = 0, acresPerSitizen = 0;
 bool isPlague = false, isCorrect = false, isExit = false;
 
@@ -172,7 +173,14 @@ void main()
             acresToSow = parse(input, &acresToSow);
         }
 
-        if (isExit) break;                                                          // выход из игрового цикла, если игрок ввел "exit" в любом из полей
+        if (isExit)
+        {
+            osave.open("save.txt");                                                     // сохранение игрового прогресса в файл по окончанию хода
+            osave.clear();
+            osave << age << ' ' << population << ' ' << square << ' ' << wheat_amount;
+            osave.close();
+            break;                                                                      // выход из игрового цикла, если игрок ввел "exit" в любом из полей
+        }                                                                               
 
         wheat_amount += (acresToSell - acresToBuy) * acreCost - acresToSow * 0.5;   // вычисление количества пшеницы исходя из введенных данных
 
@@ -194,8 +202,6 @@ void main()
                                                                                     // количеством человек, которых можно прокормить)
         if (deaths < 0) deaths = 0;                                                 // если еды хватает
 
-        cout << wheatForPeople << endl;
-
         if ((float)deaths / population > 0.45f || population <= 0) break;
 
         avDeathPersent += (float)deaths / population;
@@ -207,11 +213,6 @@ void main()
         else if (immigrants > 50) immigrants = 50;
 
         population += immigrants - deaths;                                          // итого населения
-
-        osave.open("save.txt");                                                     // сохранение игрового прогресса в файл по окончанию хода
-        osave.clear();
-        osave << age << ' ' << population << ' ' << square << ' ' << wheat_amount;
-        osave.close();
     }
 
     if (!isExit)                                                                    // если игра завершилась, удаляется сохранение и выводятся итоги
