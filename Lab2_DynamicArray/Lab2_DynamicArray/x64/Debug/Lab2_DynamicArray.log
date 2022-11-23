@@ -1,0 +1,3 @@
+﻿  Lab2_DynamicArray.cpp
+C:\Users\evgen\source\repos\Lab2_DynamicArray\Lab2_DynamicArray\Lab2_DynamicArray.cpp(4,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  Lab2_DynamicArray.vcxproj -> C:\Users\evgen\source\repos\Lab2_DynamicArray\x64\Debug\Lab2_DynamicArray.exe
