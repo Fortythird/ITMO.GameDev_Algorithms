@@ -1,0 +1,3 @@
+﻿  main.cpp
+C:\Users\evgen\OneDrive\Документы\GitHub\ITMO.GameDev_Algorithms\Lab3_QuickSort\Lab3_QuickSort\main.cpp(27,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  Lab3_QuickSort.vcxproj -> C:\Users\evgen\OneDrive\Документы\GitHub\ITMO.GameDev_Algorithms\Lab3_QuickSort\x64\Debug\Lab3_QuickSort.exe
