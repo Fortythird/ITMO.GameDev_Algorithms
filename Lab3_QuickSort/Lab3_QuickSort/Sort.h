@@ -25,7 +25,6 @@ T* partitionHoare(T* low, T* high, Compare comp)
         if (i >= j)
         {
             return j;
-            break;
         }
         std::swap(*i, *j);
         i += 1;

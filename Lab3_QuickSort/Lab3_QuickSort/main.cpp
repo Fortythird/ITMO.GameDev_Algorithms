@@ -25,11 +25,13 @@ double GetCounter()
 
 void main()
 {
-
-    std::string arr[10] = { "Here is 19 symbols!", "But here only 16", "12345678", "", "testtesttest", "12345678", "Yet another string",
+    int arr[10] = { 10, 5, 9, 6, 3, 4, 1, 8, 2, 7 };
+    quickSort(arr, arr + 9, [](int a, int b) { return a < b; });
+    for (int i = 0; i < 10; i++) std::cout << arr[i] << std::endl;
+    /*std::string arr[10] = {"Here is 19 symbols!", "But here only 16", "12345678", "", "testtesttest", "12345678", "Yet another string",
                 "And another one", "And another one", "Meh..." };
     quickSort(arr, arr + 9, [](std::string a, std::string b) { return a.size() < b.size(); });
-    for (int i = 0; i < 10; i++) std::cout << arr[i] << std::endl;
+    for (int i = 0; i < 10; i++) std::cout << arr[i] << std::endl;*/
     /*int array[100];
     int arrForIns[100];
     int copy[100];
