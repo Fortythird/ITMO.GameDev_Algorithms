@@ -1,2 +1,4 @@
-﻿  ArrayTest.cpp
-  ArrayTest.vcxproj -> C:\Users\evgen\source\repos\Lab2_DynamicArray\x64\Debug\ArrayTest.dll
+﻿  pch.cpp
+  ArrayTest.cpp
+     Creating library C:\Users\evgen\OneDrive\Документы\GitHub\ITMO.GameDev_Algorithms\Lab2_DynamicArray\x64\Debug\ArrayTest.lib and object C:\Users\evgen\OneDrive\Документы\GitHub\ITMO.GameDev_Algorithms\Lab2_DynamicArray\x64\Debug\ArrayTest.exp
+  ArrayTest.vcxproj -> C:\Users\evgen\OneDrive\Документы\GitHub\ITMO.GameDev_Algorithms\Lab2_DynamicArray\x64\Debug\ArrayTest.dll

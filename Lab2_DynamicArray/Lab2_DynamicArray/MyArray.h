@@ -3,7 +3,7 @@
 #include <iostream>
 
 #define MY_ARRAY_H
-#define DEFAULT_CAPASITY 8
+#define DEFAULT_CAPACITY 8
 #define MEMORY_MULT 2
 
 template <typename T>
@@ -12,7 +12,7 @@ class MyArray final
 private:
 
 	T* dataptr_ = nullptr;
-	int capacity_ = DEFAULT_CAPASITY;
+	int capacity_ = DEFAULT_CAPACITY;
 	int size_ = 0;
 
 	class ConstIterator
@@ -75,7 +75,7 @@ public:
 
 	MyArray()
 	{
-		dataptr_ = (T*) malloc(DEFAULT_CAPASITY * sizeof(T));
+		dataptr_ = (T*) malloc(DEFAULT_CAPACITY * sizeof(T));
 	}
 
 	MyArray(int capacity)
@@ -84,20 +84,43 @@ public:
 		capacity_ = capacity;
 	}
 
+	MyArray(const MyArray& otherArr)
+	{
+		capacity_ = otherArr.capacity_;
+		size_ = otherArr.size_;
+		dataptr_ = (T*)malloc(capacity_ * sizeof(T));
+		for (int i = 0; i < size_; i++) {
+			new(dataptr_ + i) T(otherArr.dataptr_[i]);
+		}
+	}
+
+	MyArray(MyArray&& otherArr)
+	{
+		capacity_ = otherArr.capacity_;
+		size_ = otherArr.size_;
+		free(dataptr_);
+		dataptr_ = otherArr.dataptr_;
+		otherArr.size_ = 0;
+		otherArr.capacity_ = DEFAULT_CAPACITY;
+		otherArr.dataptr_ = nullptr;
+	}
+
 	~MyArray()
 	{
 		for (int i = 0; i < size_; i++) dataptr_[i].~T();
 		free(dataptr_);
 	}
 
-	int insert(const T& value)
+	int insert(const T& value) 
 	{
 		if (size_ == capacity_)
 		{
 			T* ndataptr_ = dataptr_;
 			dataptr_ = (T*) malloc(capacity_ * MEMORY_MULT * sizeof(T));
-			for (int i = 0; i < capacity_; i++) new (dataptr_ + i) T(std::move(ndataptr_[i]));
+			for (int i = 0; i < capacity_; i++) new (dataptr_[i]) T(std::move(ndataptr_[i]));
 			capacity_ *= MEMORY_MULT;
+			for (int i = 0; i < size_; i++) ndataptr_[i].~T();
+			ndataptr_ = nullptr;
 		}
 		new (dataptr_ + size_) T(value);
 		size_++;
@@ -115,8 +138,14 @@ public:
 				for (int i = capacity_ - 1; i >= index; i--) new (dataptr_ + i + 1) T(std::move(ndataptr_[i]));
 				for (int i = 0; i < index; i++) new (dataptr_ + i) T(std::move(ndataptr_[i]));
 				capacity_ *= MEMORY_MULT;
+				for (int i = 0; i < size_; i++) ndataptr_[i].~T();
+				ndataptr_ = nullptr;
 			}
-			else for (int i = size_ - 1; i >= index; i--) new (dataptr_ + i + 1) T(std::move(dataptr_[i]));
+			else for (int i = size_ - 1; i >= index; i--)
+			{
+				dataptr_[i + 1].~T();
+				new (dataptr_ + i + 1) T(std::move(dataptr_[i]));
+			}
 			new (dataptr_ + index) T(value);
 			size_++;
 			return size_ - 1;
@@ -128,19 +157,14 @@ public:
 	{
 		if (index < size_ - 1)
 		{
-			for (int i = index; i < size_ - 1; i++) new (dataptr_ + i) T(std::move(dataptr_[i + 1]));
+			for (int i = index; i < size_ - 1; i++)
+			{
+				dataptr_[i].~T();
+				new (dataptr + i) T(std::move(dataptr_[i + 1]);
+			}
+			dataptr_[size_ - 1].~T();
 			size_--;
 		}
-	}
-
-	const T& operator[](int index) const
-	{
-		return (dataptr_[index]);
-	}
-
-	T& operator[](int index)
-	{
-		return (dataptr_[index]);
 	}
 
 	int size() const
@@ -154,7 +178,42 @@ public:
 	Iterator reverseIterator() { return Iterator(this, false); }
 	ConstIterator cReverseIterator() { return ConstIterator(this, false); }
 
+	const T& operator[](int index) const
+	{
+		return (dataptr_[index]);
+	}
 
+	T& operator[](int index)
+	{
+		return (dataptr_[index]);
+	}
+
+	MyArray<T>& operator=(MyArray<T> otherArray)
+	{
+		std::swap(dataptr_, otherArray.dataptr_);
+		std::swap(size_, otherArray.size_);
+		std::swap(capacity_, otherArray.capacity_);
+
+		return *this;
+	}
+
+	MyArray<T>& operator=(MyArray<T>&& otherArray)
+	{
+		if (this != &otherArray)
+		{
+			for (int i = 0; i < size_; i++) dataptr_[i].~T();
+			free(dataptr_);
+
+			capacity_ = otherArray.capacity_;
+			size_ = otherArray.size_;
+			dataptr_ = otherArray.dataptr_;
+
+			otherArray._itemsArray = nullptr;
+			otherArray._currentCapacity = 0;
+			otherArray._currentSize = 0;
+		}
+		return *this;
+	}
 
 	// вспомогательные методы, используются для тестирования
 
